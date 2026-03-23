@@ -11,3 +11,11 @@ class Produto:
     def __str__(self):
         venc_formatado = self.data_vencimento.strftime("%d/%m/%Y")
         return f"{self.nome} (Qtd: {self.quantidade} | Vence: {venc_formatado})"
+    
+class Aluno:
+    def __init__(self, nome, curso):
+        self.nome = nome
+        self.curso = curso
+
+    def __str__(self):
+        return f"Aluno: {self.nome} | Curso: {self.curso}"
