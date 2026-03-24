@@ -1,4 +1,4 @@
-class No: # Usado pela Fila de Estoque
+class No: 
     def __init__(self, produto):
         self.produto = produto
         self.proximo = None
@@ -24,19 +24,17 @@ class FilaEstoque:
         if self.inicio is None: self.fim = None
         return lote_removido
 
-# --- NOVA ESTRUTURA PARA PAGAMENTOS (LISTA LIGADA) ---
-
 class NoVenda:
     def __init__(self, dados_venda):
-        self.venda = dados_venda # Dicionário com: cliente, item, valor
+        self.venda = dados_venda 
         self.proximo = None
 
 class ListaPagamento:
     def __init__(self):
-        self.cabeca = None # Início da lista de registros
+        self.cabeca = None 
 
     def registrar_venda(self, dados_venda):
         novo_no = NoVenda(dados_venda)
-        # Inserção no início (Lógica de Pilha para histórico recente)
+
         novo_no.proximo = self.cabeca
         self.cabeca = novo_no

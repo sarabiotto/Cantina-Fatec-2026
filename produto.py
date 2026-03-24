@@ -2,14 +2,12 @@ from datetime import datetime
 
 class Produto:
     def __init__(self, nome, preco_c, preco_v, vencimento, qtd):
-        # Atributos Privados (Encapsulados com __)
         self.__nome = nome
         self.__preco_c = preco_c
         self.__preco_v = preco_v
         self.__vencimento = datetime.strptime(vencimento, "%d/%m/%Y")
         self.__quantidade = qtd
 
-    # --- GETTERS (Para ler os dados) ---
     def get_nome(self):
         return self.__nome
 
@@ -25,12 +23,11 @@ class Produto:
     def get_quantidade(self):
         return self.__quantidade
 
-    # --- SETTERS (Para alterar os dados com segurança) ---
     def set_quantidade(self, nova_qtd):
         if nova_qtd >= 0:
             self.__quantidade = nova_qtd
         else:
-            print(f"❌ Erro: Quantidade inválida para o produto {self.__nome}")
+            print(f"Erro: Quantidade inválida para o produto {self.__nome}")
 
 class Aluno:
     def __init__(self, nome, curso):
