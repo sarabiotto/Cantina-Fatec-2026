@@ -1,10 +1,11 @@
 from datetime import datetime
 
 class Produto:
-    def __init__(self, nome, preco_c, preco_v, vencimento, qtd):
+    def __init__(self, nome, preco_c, preco_v, data_c, vencimento, qtd):
         self.__nome = nome
         self.__preco_c = preco_c
         self.__preco_v = preco_v
+        self.__data_c = datetime.strptime(data_c, "%d/%m/%Y")
         self.__vencimento = datetime.strptime(vencimento, "%d/%m/%Y")
         self.__quantidade = qtd
 
@@ -14,6 +15,9 @@ class Produto:
     def get_preco_venda(self):
         return self.__preco_v
 
+    def get_data_compra(self):
+        return self.__data_c
+    
     def get_preco_compra(self):
         return self.__preco_c
 
@@ -29,13 +33,17 @@ class Produto:
         else:
             print(f"Erro: Quantidade inválida para o produto {self.__nome}")
 
-class Aluno:
-    def __init__(self, nome, curso):
+class Consumidor:
+    def __init__(self, nome, categoria, curso):
         self.__nome = nome
-        self.__curso = curso
+        self.__categoria = categoria
+        self.__curso = curso         
 
     def get_nome(self):
         return self.__nome
+        
+    def get_categoria(self):
+        return self.__categoria
 
     def get_curso(self):
         return self.__curso
