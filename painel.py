@@ -52,7 +52,55 @@ def realizar_venda(consumidor, nome_prod, qtd_pedida):
 
     estatisticas_consumo[nome_prod] = estatisticas_consumo.get(nome_prod, 0) + 1
     
-    print(f"Venda OK: {consumidor.get_nome()} ({consumidor.get_categoria()}) comprou {nome_prod} - R${total_recebido:.2f}")
+    print(f"Venda OK: {consumidor.get_nome()} ({consumidor.get_categoria()} - {consumidor.get_curso()}) comprou {nome_prod} - R${total_recebido:.2f}")
+
+def menu_interativo():
+    while True:
+        print("\n" + "="*30)
+        print("    CANTINA FATEC - MENU")
+        print("="*30)
+        print("1. Cadastrar Produto (Estoque)")
+        print("2. Registrar Venda (PIX)")
+        print("3. Ver Relatorio de Consumo")
+        print("4. Rodar Simulacao (Minimundo)")
+        print("0. Sair e Salvar")
+        print("="*30)
+        
+        opcao = input("Escolha uma opcao: ")
+
+        if opcao == "1":
+            nome = input("Nome do Produto: ")
+            p_c = float(input("Preço de Compra: "))
+            p_v = float(input("Preço de Venda: "))
+            d_c = input("Data Compra (dd/mm/aaaa): ")
+            venc = input("Vencimento (dd/mm/aaaa): ")
+            qtd = int(input("Quantidade: "))
+            adicionar_estoque(nome, p_c, p_v, d_c, venc, qtd)
+            print(f"\n[OK] {nome} adicionado ao estoque!")
+
+        elif opcao == "2":
+            nome_cli = input("Nome do Cliente: ")
+            cat = input("Categoria (aluno/professor/servidor): ")
+            curso = input("Curso (IA/ESG): ")
+            prod = input("O que ele comprou? ")
+            qtd = int(input("Quantidade: "))
+            
+            cliente = Consumidor(nome_cli, cat, curso)
+            realizar_venda(cliente, prod, qtd)
+
+        elif opcao == "3":
+            mostrar_relatorio()
+
+        elif opcao == "4":
+            gerar_minimundo()
+
+        elif opcao == "0":
+            salvar_dados()
+            print("Encerrando sistema... Até logo!")
+            break
+        else:
+            print("Opção inválida!")
+
 
 def gerar_minimundo():
     print("\n GERANDO 10 VENDAS AUTOMÁTICAS COM FAKER...")
@@ -60,10 +108,11 @@ def gerar_minimundo():
     adicionar_estoque("Torcida", 1.8, 3.0, "01/03/2026", "20/05/2026", 50)
     adicionar_estoque("Coca-cola 200ml", 2.0, 3.0, "01/03/2026", "15/05/2026", 40)
     adicionar_estoque("Bombom", 0.8, 2.0, "01/03/2026", "10/05/2026", 30)
+    adicionar_estoque("Agua", 1.5, 3.0, "01/03/2026", "10/05/2027", 20)
 
     cursos = ["IA", "ESG"]
     categorias = ["aluno", "servidor", "professor"]
-    produtos = ["Torcida", "Coca-cola 200ml", "Bombom"]
+    produtos = ["Torcida", "Coca-cola 200ml", "Bombom", "Agua"]
 
     for _ in range(10):
         consumidor_fake = Consumidor(fake.name(), random.choice(categorias), random.choice(cursos))
@@ -114,9 +163,11 @@ def carregar_dados():
 if __name__ == "__main__":
     carregar_dados()
     
-    if not estoque_geral:
-        gerar_minimundo()
+    menu_interativo()
+
+    gerar_minimundo()
         
     mostrar_relatorio()
     
     salvar_dados()
+
